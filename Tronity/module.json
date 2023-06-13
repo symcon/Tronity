@@ -1,0 +1,12 @@
+{
+    "id": "{F4351346-79F7-3303-4FCE-EB778D2F759C}",
+    "name": "Tronity",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "TRON",
+    "url": "https://github.com/symcon/Tronity"
+}

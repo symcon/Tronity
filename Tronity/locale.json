@@ -1,0 +1,26 @@
+{
+    "translations": {
+        "de": {
+            "Authentication Methode": "Authentifizierungsmethode",
+            "Authenticate": "Authentifizieren",
+            "Query Interval": "Abfrage Intervall",
+            "Car ID": "Auto ID",
+            "seconds": "Sekunden",
+            "Odometer": "Kilometerzähler",
+            "Range": "",
+            "Charging": "Laden",
+            "Charging Remain Time": "Verbleibende Ladezeit",
+            "Plugged": "Eingesteckt",
+            "Charger Power": "Ladeleistung",
+            "Latitude": "Breitengrad",
+            "Longitude": "Längengrad",
+            "Timestamp": "Zeitstempel",
+            "Last Update": "Letztes Update",
+            "Fetch Last Recorded Data": "Hole die zuletzt aufgezeichneten Daten",
+            "The provided credential are incorrect": "Die angegebenen Anmeldeinformationen sind falsch",
+            "The server experienced an unexpected error": "Auf dem Server ist ein unerwarteter Fehler aufgetreten",
+            "Status code: %u is not supported": "Status Code: %u wird nicht unterstützt",
+            "The authentication is succeed": "Die Authentifizierung war erfolgreich"
+        }
+    }
+}
