@@ -1,0 +1,48 @@
+{
+    "elements": [
+        {
+            "type": "RowLayout",
+            "items": [
+                {
+                    "type": "ValidationTextBox",
+                    "caption": "ClientID",
+                    "name": "ClientID"
+                },
+                {
+                    "type": "PasswordTextBox",
+                    "caption": "ClientSecret",
+                    "name": "ClientSecret"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "type": "Label",
+            "caption": "",
+            "name": "AuthStatus"
+        },
+        {
+            "type": "Button",
+            "caption": "Test Authentication",
+            "onClick": "TRONIO_AuthenticateUser($id,'','');"
+        }
+    ],
+    "status": [
+        {
+            "code": 200,
+            "icon": "error",
+            "caption": "Unexpected Error"
+        },
+        {
+            "code": 203,
+            "icon": "error",
+            "caption": "The server experienced an unexpected error"
+        },
+        {
+            "code": 201,
+            "icon": "error",
+            "caption": "The credentials are not valid"
+        }
+    ]
+}

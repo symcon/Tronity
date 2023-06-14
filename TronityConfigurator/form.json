@@ -1,0 +1,20 @@
+{
+    "actions": [
+        {
+            "type": "Configurator",
+            "columns": [
+                {
+                    "caption": "Vehicle Name",
+                    "name": "VehicleName",
+                    "width": "auto"
+                },
+                {
+                    "caption": "VehicleID",
+                    "name": "VehicleID",
+                    "width": "250px"
+                }
+            ],
+            "values": []
+        }
+    ]
+}

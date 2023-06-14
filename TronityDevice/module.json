@@ -1,0 +1,16 @@
+{
+    "id": "{D041B19E-6D70-A84F-B67C-4FF51CA38D3A}",
+    "name": "TronityDevice",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [
+        "{6254260D-00B7-6054-F4CB-00CBA128A988}"
+    ],
+    "childRequirements": [],
+    "implemented": [
+        "{A3079924-2CCF-03ED-BAEA-2EBCE72F7613}"
+    ],
+    "prefix": "TROND",
+    "url": "https://github.com/symcon/Tronity"
+}

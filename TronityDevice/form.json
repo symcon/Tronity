@@ -1,0 +1,22 @@
+{
+    "elements": [
+        {
+            "type": "ValidationTextBox",
+            "caption": "VehicleID",
+            "name": "VehicleID"
+        },
+        {
+            "type": "ValidationTextBox",
+            "caption": "Vehicle Name",
+            "name": "VehicleName"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Button",
+            "caption": "Fetch the last records",
+            "onClick": "TROND_RequestLastRecord($id);"
+        }
+    ],
+    "status": []
+}

@@ -1,0 +1,16 @@
+{
+    "id": "{D3C59253-0214-C1A7-B5AA-B686D3851766}",
+    "name": "Tronity Configurator",
+    "type": 4,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [
+        "{6254260D-00B7-6054-F4CB-00CBA128A988}"
+    ],
+    "childRequirements": [],
+    "implemented": [
+        "{A3079924-2CCF-03ED-BAEA-2EBCE72F7613}"
+    ],
+    "prefix": "TRONC",
+    "url": "https://github.com/symcon/Tronity"
+}
