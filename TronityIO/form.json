@@ -5,12 +5,12 @@
             "items": [
                 {
                     "type": "ValidationTextBox",
-                    "caption": "ClientID",
+                    "caption": "Client ID",
                     "name": "ClientID"
                 },
                 {
                     "type": "PasswordTextBox",
-                    "caption": "ClientSecret",
+                    "caption": "Client Secret",
                     "name": "ClientSecret"
                 }
             ]

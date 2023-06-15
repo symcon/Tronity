@@ -75,7 +75,7 @@ class TronityConfigurator extends IPSModule
         return json_encode($form);
     }
 
-    public function searchID($vehicleID): int
+    private function searchID($vehicleID): int
     {
         $ids = IPS_GetInstanceListByModuleID('{D041B19E-6D70-A84F-B67C-4FF51CA38D3A}');
         foreach ($ids as $id) {

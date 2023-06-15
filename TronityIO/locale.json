@@ -1,0 +1,15 @@
+{
+    "translations": {
+        "de": {
+            "Client ID": "Benutzer ID",
+            "Client Secret": "Benutzer Geheimnis",
+            "Test Authentication": "Teste Authentifikation",
+            "Unexpect Error": "Unerwarteter Fehler",
+            "The server experienced an unexpected error": "Der Server hat einen unerwarteten Fehler",
+            "The credentials are not valid": "Die Anmeldedaten sind nicht valide",
+            "The provided credential are incorrect": "Die Anmeldedaten sind nicht korrekt",
+            "Status code: %u is not supported. The Message is: %s .": "Der Statuscode: %u wird nicht unterstützt. Die Nachricht lautet: %s",
+            "The authentication is succeed": "Die Authentifizierung war erfolgreich"
+        }
+    }
+}

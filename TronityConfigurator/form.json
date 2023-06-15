@@ -5,12 +5,12 @@
             "columns": [
                 {
                     "caption": "Vehicle Name",
-                    "name": "VehicleName",
+                    "name": "Vehicle Name",
                     "width": "auto"
                 },
                 {
                     "caption": "VehicleID",
-                    "name": "VehicleID",
+                    "name": "Vehicle ID",
                     "width": "250px"
                 }
             ],

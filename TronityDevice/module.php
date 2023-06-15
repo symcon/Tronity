@@ -13,6 +13,7 @@ declare(strict_types=1);
             //Properties
             $this->RegisterPropertyString('VehicleID', '');
             $this->RegisterPropertyString('VehicleName', '');
+            $this->RegisterPropertyInteger('QueryInterval', 60); //30min
 
             //Profiles
             if (!IPS_VariableProfileExists('TRON.Kilometer')) {
@@ -29,7 +30,7 @@ declare(strict_types=1);
                 IPS_SetVariableProfileText('TRON.Position', '', '°');
             }
             if (!IPS_VariableProfileExists('TRON.Time')) {
-                IPS_CreateVariableProfile('TRON.Time', VARIABLETYPE_FLOAT);
+                IPS_CreateVariableProfile('TRON.Time', VARIABLETYPE_INTEGER);
                 IPS_SetVariableProfileText('TRON.Time', '', $this->Translate('seconds'));
             }
             //Profiles
@@ -41,20 +42,32 @@ declare(strict_types=1);
                 IPS_SetVariableProfileAssociation('TRON.Status', 403, $this->Translate('Insufficient permissions'), '', 0xFF0000);
                 IPS_SetVariableProfileAssociation('TRON.Status', 500, $this->Translate('The server experienced an unexpected error'), '', 0xFF0000);
             }
+            if (!IPS_VariableProfileExists('TRON.Charging')) {
+                IPS_CreateVariableProfile('TRON.Charging', VARIABLETYPE_STRING);
+                IPS_SetVariableProfileAssociation('TRON.Charging', 'Complete', $this->Translate('Complete'), '', 0x00FF00);
+                IPS_SetVariableProfileAssociation('TRON.Charging', 'Error', $this->Translate('Error'), '', 0xFF0000);
+                IPS_SetVariableProfileAssociation('TRON.Charging', 'NoPower', $this->Translate('No Power'), '', 0xFF0000);
+                IPS_SetVariableProfileAssociation('TRON.Charging', 'Starting', $this->Translate('Starting'), '', 0x0000FF);
+                IPS_SetVariableProfileAssociation('TRON.Charging', 'Stopped', $this->Translate('Stopped'), '', 0x0000FF);
+                IPS_SetVariableProfileAssociation('TRON.Charging', 'Disconnected', $this->Translate('Disconnected'), '', 0x00FF00);
+                IPS_SetVariableProfileAssociation('TRON.Charging', 'Charging', $this->Translate('Charging'), '', 0x0000FF);
+            }
 
             //Variables
             $this->RegisterVariableInteger('Status', 'Status ', 'TRON.Status', 0);
-            $this->RegisterVariableInteger('Odometer', $this->Translate('Odometer'), 'TRON.Kilometer', 1); 
+            $this->RegisterVariableInteger('Odometer', $this->Translate('Odometer'), 'TRON.Kilometer', 1);
             $this->RegisterVariableInteger('Range', $this->Translate('Range'), 'TRON.Kilometer', 2);
-            $this->RegisterVariableInteger('Level', $this->Translate('Battery Level'), '~Battery.100', 3); 
-            $this->RegisterVariableString('Charging', $this->Translate('Charging'), '', 4); //TODO: Enums
-            $this->RegisterVariableInteger('ChargeRemainTime', $this->Translate('Charging Remain Time'), '', 5); //TODO Profil mit Suffix Min oder sec?
+            $this->RegisterVariableInteger('Level', $this->Translate('Battery Level'), '~Battery.100', 3);
+            $this->RegisterVariableString('Charging', $this->Translate('Charging Status'), 'TRON.Charging', 4);
+            $this->RegisterVariableInteger('ChargeRemainTime', $this->Translate('Charging Remain Time'), 'TRON.Time', 5);
             $this->RegisterVariableBoolean('Plugged', $this->Translate('Plugged'), 'TRON.Plugged', 6);
             $this->RegisterVariableInteger('ChargerPower', $this->Translate('Charger Power'), '', 7);
-            $this->RegisterVariableFloat('Latitude', $this->Translate('Latitude'), 'TRON.Position', 8); 
-            $this->RegisterVariableFloat('Longitude', $this->Translate('Longitude'), 'TRON.Position', 9); 
-            $this->RegisterVariableInteger('Timestamp', $this->Translate('Timestamp'), '~UnixTimestamp', 10); 
-            $this->RegisterVariableInteger('LastUpdate', $this->Translate('Last Update'), '~UnixTimestamp', 11); 
+            $this->RegisterVariableFloat('Latitude', $this->Translate('Latitude'), 'TRON.Position', 8);
+            $this->RegisterVariableFloat('Longitude', $this->Translate('Longitude'), 'TRON.Position', 9);
+            $this->RegisterVariableInteger('Timestamp', $this->Translate('Timestamp'), '~UnixTimestamp', 10);
+            $this->RegisterVariableInteger('LastUpdate', $this->Translate('Last Update'), '~UnixTimestamp', 11);
+
+            $this->RegisterTimer('QueryTimer', 0, 'TRON_RequestLastRecord($_IPS[\'TARGET\']);');
         }
 
         public function Destroy()
@@ -69,9 +82,10 @@ declare(strict_types=1);
             parent::ApplyChanges();
 
             $this->RequestLastRecord();
+            $this->SetTimerInterval('QueryTimer', $this->ReadPropertyInteger('QueryInterval') * 60 * 1000);
         }
 
-        public function RequestLastRecord(): void
+        public function RequestLastRecord(): string
         {
 
             /**
@@ -88,8 +102,6 @@ declare(strict_types=1);
                     ])
                 ])
             ), true);
-
-            $this->SendDebug('Response', print_r($response, true), 0);
             $this->SetValue('Status', array_key_exists('statusCode', $response) ? $response['statusCode'] : 200); //Set value for the individuell car
 
             if (!array_key_exists('statusCode', $response)) {
@@ -104,11 +116,15 @@ declare(strict_types=1);
                 $this->SetValue('Longitude', $response['longitude']);
                 $this->SetValue('Timestamp', $response['timestamp'] / 1000); //It is in Millisecs
                 $this->SetValue('LastUpdate', $response['lastUpdate'] / 1000); //It is in Millisecs
+
+                $this->SetTimerInterval('QueryTimer', $this->ReadPropertyInteger('QueryInterval') * 60 * 1000);
+                return $this->Translate('Finished');
             } else {
                 switch ($response['statusCode']) {
                     case 400:
                     case 401:
                         $this->SetStatus(201); //Failed credentials or incorrect token
+
                         break;
                     case 500:
                         $this->SetStatus(202); //Unexpected server error
@@ -117,10 +133,12 @@ declare(strict_types=1);
                         $this->SetStatus(200); //Unexpected error
                         break;
                 }
+                $this->SetTimerInterval('QueryTimer', 0);
+                return $this->Translate($response['message']);
             }
         }
 
-        public function StartCharging()
+        public function StartCharging() : string
         {
             $response = json_decode($this->SendDataToParent(
                 json_encode([
@@ -142,7 +160,7 @@ declare(strict_types=1);
             }
         }
 
-        public function StopCharging()
+        public function StopCharging() : string
         {
             $response = json_decode($this->SendDataToParent(
                 json_encode([

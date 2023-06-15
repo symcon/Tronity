@@ -100,7 +100,7 @@ declare(strict_types=1);
                     return 203;
                     break;
                 default:
-                        $this->UpdateFormField('AuthStatus', 'caption', sprintf($this->Translate('Status code: %u is not supported'), $response['statusCode']));
+                        $this->UpdateFormField('AuthStatus', 'caption', sprintf($this->Translate('Status code: %u is not supported. The Message is: %s .'), $response['statusCode'], $response['message']));
                     return 200;
                     break;
                 }
