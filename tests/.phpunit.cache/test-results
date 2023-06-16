@@ -1,1 +1,0 @@
-{"version":1,"defects":[],"times":{"TronityValidationTest::testValidateTronity":0.004,"TronityValidationTest::testValidateTronityModule":0.001,"TronityValidationTest::testNop":0,"TronityValidationTest::testValidateTronityIO":0.008,"TronityValidationTest::testValidateTronityConfigurator":0.004}}

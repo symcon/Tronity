@@ -3,7 +3,7 @@
         "de": {
             "Authentication Methode": "Authentifizierungsmethode",
             "Authenticate": "Authentifizieren",
-            "Query Interval": "Abfrage Intervall",
+            "Update Interval": "Aktualisierungsintervall",
             "Car ID": "Auto ID",
             "seconds": "Sekunden",
             "Odometer": "Kilometerzähler",
@@ -23,11 +23,6 @@
             "Status code: %u is not supported": "Status Code: %u wird nicht unterstützt",
             "The authentication is succeed": "Die Authentifizierung war erfolgreich",
             "Unplugged": "Ausgesteckt",
-            "All right": "Alles ok",
-            "The credentials are not valid": "Die Anmeldedaten sind nicht valide",
-            "The provided token is incorrect": "Der bereitgestellte Token ist ungültig",
-            "Insufficient permissions": "Keine ausreichende Berechtigung",
-            "The server experienced an unexpected error": "Der Server hat einen unerwarteten Fehler",
             "Complete": "Vollständig",
             "Error": "Fehler",
             "No Power": "Keine Energie",
@@ -35,10 +30,10 @@
             "Stopped": "Gestoppt",
             "Disconnected": "Getrennt",
             "Vehicle ID": "Fahrzeug ID",
-            "Vehicle Name": "Fahrzeug Name",
             "Fetch the last records": "Hole die letzten Aufzeichnungen",
-            "Finished": "Fertig",
-            " Minutes": " Minuten"
+            "minutes": " Minuten",
+            "Start Charging": "Laden starten",
+            "Stop Charging": "Laden beenden"
         }
     }
 }

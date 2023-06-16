@@ -1,0 +1,11 @@
+{
+    "translations": {
+        "de": {
+            "Client ID": "Benutzer ID",
+            "Client Secret": "Benutzer Geheimnis",
+            "Test Authentication": "Authentifikation testen",
+            "Error while communicating with Tronity. Please check the messages tab for more information": "Fehler bei der Kommunikation mit Tronity. Weitere Informationen finden Sie im Reiter Meldungen",
+            "OK": "OK"
+        }
+    }
+}

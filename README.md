@@ -2,11 +2,11 @@
 
 Folgende Module beinhaltet das Tronity Repository:
 
-- __TronityDevice__ ([Dokumentation](TronityDevice))  
-	Abbildung eines Fahrzeuges 
+- __Tronity Device__ ([Dokumentation](TronityDevice))  
+	Abbildung eines Fahrzeuges
 
-- __Tronity IO__ ([Dokumentation](TronityIO))  
-	Abfragen Händler für die Tronity Platform.
+- __Tronity Cloud__ ([Dokumentation](TronityCloud))  
+	IO für die Kommunikation mit der Tronity Platform.
 
 - __Tronity Konfigurator__ ([Dokumentation](TronityConfigurator))  
-	Anzeige aller gefundenen Fahrzeuge und optionale Erstellung.
+	Anzeige aller gefundenen Fahrzeuge.

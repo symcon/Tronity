@@ -2,15 +2,16 @@
     "actions": [
         {
             "type": "Configurator",
+            "delete": true,
             "columns": [
                 {
                     "caption": "Vehicle Name",
-                    "name": "Vehicle Name",
+                    "name": "name",
                     "width": "auto"
                 },
                 {
                     "caption": "VehicleID",
-                    "name": "Vehicle ID",
+                    "name": "vid",
                     "width": "250px"
                 }
             ],

@@ -1,0 +1,28 @@
+{
+    "elements": [
+        {
+            "type": "ValidationTextBox",
+            "caption": "Client ID",
+            "name": "ClientID"
+        },
+        {
+            "type": "PasswordTextBox",
+            "caption": "Client Secret",
+            "name": "ClientSecret"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Button",
+            "caption": "Test Authentication",
+            "onClick": "TRON_TestAuthentication($id);"
+        }
+    ],
+    "status": [
+        {
+            "code": 200,
+            "icon": "error",
+            "caption": "Error while communicating with Tronity. Please check the messages tab for more information"
+        }
+    ]
+}

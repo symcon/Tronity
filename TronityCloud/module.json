@@ -1,6 +1,6 @@
 {
     "id": "{46826B03-733A-17E8-72E8-1ABBB0FF7608}",
-    "name": "IO",
+    "name": "TronityCloud",
     "type": 1,
     "vendor": "",
     "aliases": [],
@@ -11,6 +11,6 @@
     "implemented": [
         "{63CE9905-4ED9-8E7E-2359-6FFD9D85B407}"
     ],
-    "prefix": "TRONIO",
+    "prefix": "TRON",
     "url": "https://github.com/symcon"
 }

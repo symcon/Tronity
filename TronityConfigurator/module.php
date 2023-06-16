@@ -8,13 +8,27 @@ class TronityConfigurator extends IPSModule
         //Never delete this line!
         parent::Create();
 
-        $this->RequireParent('{AB3EC6A5-231D-0B9C-BCFE-46906BE3E434}');
+        $this->RequireParent('{46826B03-733A-17E8-72E8-1ABBB0FF7608}');
     }
 
     public function Destroy()
     {
         //Never delete this line!
         parent::Destroy();
+    }
+
+    private function Request($endpoint)
+    {
+        //get the list of vehicle
+        $data = json_encode([
+            'DataID'        => '{63CE9905-4ED9-8E7E-2359-6FFD9D85B407}',
+            'Buffer'        => json_encode([
+                'RequestMethod' => 'GET',
+                'RequestURL'    => $endpoint,
+                'RequestData'   => ''
+            ])
+        ]);
+        return json_decode($this->SendDataToParent($data), true);
     }
 
     public function GetConfigurationForm(): string
@@ -24,35 +38,25 @@ class TronityConfigurator extends IPSModule
             return json_encode($form);
         }
 
-        //get the list of vehicle
-        $data = json_encode([
-            'DataID'        => '{6254260D-00B7-6054-F4CB-00CBA128A988}',
-            'Buffer'        => json_encode([
-                'RequestMethod' => 'GET',
-                'RequestURL'    => 'https://api.tronity.tech/tronity/vehicles',
-                'RequestData'   => ''
-            ])
-        ]);
-        $vehicles = json_decode($this->SendDataToParent($data), true);
+        $vehicles = $this->Request('/tronity/vehicles');
+
         $vehicleInstances = IPS_GetInstanceListByModuleID('{D041B19E-6D70-A84F-B67C-4FF51CA38D3A}');
 
         $availableVehicles = [];
-        $vehicles = !array_key_exists('statusCode', $vehicles) ? $vehicles['data'] : [];
-        foreach ($vehicles as $key => $vehicle) {
+        foreach ($vehicles['data'] as $vehicle) {
             $instanceID = $this->searchID($vehicle['id']);
             $vehicleInstances = array_diff($vehicleInstances, [$instanceID]);
 
             $this->SendDebug('Vehicle', print_r($vehicle, true), 0);
             $availableVehicles[] =
                 [
-                    'VehicleID'   => strval($vehicle['id']),
-                    'VehicleName' => strval($vehicle['displayName']),
+                    'vid'   => $vehicle['id'],
+                    'name' => $instanceID ? IPS_GetName($instanceID) : $vehicle['displayName'],
                     'instanceID'  => $instanceID,
                     'create'      => [
                         'moduleID'      => '{D041B19E-6D70-A84F-B67C-4FF51CA38D3A}', //TronityDevice
                         'configuration' => [
                             'VehicleID'        => $vehicle['id'],
-                            'VehicleName'      => strval($vehicle['displayName']),
                         ]
                     ]
                 ];
@@ -60,13 +64,10 @@ class TronityConfigurator extends IPSModule
 
         //search the module instance
         foreach ($vehicleInstances as $instanceID) {
-            $vehicleID = IPS_GetProperty($instanceID, 'VehicleID');
-            $vehicleName = IPS_GetProperty($instanceID, 'VehicleName');
-            //Vehicles available and have an id
             $availableVehicles[] =
                 [
-                    'VehicleID'   => strval($vehicleID),
-                    'VehicleName' => strval($vehicleName),
+                    'vid'   => IPS_GetProperty($instanceID, 'VehicleID'),
+                    'name' => IPS_GetName($instanceID),
                     'instanceID'  => $instanceID,
                 ];
         }

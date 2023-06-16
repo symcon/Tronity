@@ -31,7 +31,7 @@ Dieser Konfigurator listet alle verfügbaren Fahrzeuge auf, welche auf der Troni
  Unter 'Instanz hinzufügen' kann das 'Tronity Konfigurator'-Modul mithilfe des Schnellfilters gefunden werden.  
 	- Weitere Informationen zum Hinzufügen von Instanzen in der [Dokumentation der Instanzen](https://www.symcon.de/service/dokumentation/konzepte/instanzen/#Instanz_hinzufügen)
 
-Bei der Erstellung der Konfigurator-Instanz werden ebenfalls eine Splitter und eine IO Instanz erstellt. Die Dokumentation für die IO-Instanz finden sie [hier](../TronityIO/README.md)
+Bei der Erstellung der Konfigurator-Instanz werden ebenfalls eine Splitter und eine IO Instanz erstellt. Die Dokumentation für die IO-Instanz finden sie [hier](../TronityCloud/README.md)
 
 __Konfigurationsseite__:
 

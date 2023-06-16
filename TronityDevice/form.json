@@ -6,33 +6,28 @@
             "name": "VehicleID"
         },
         {
-            "type": "ValidationTextBox",
-            "caption": "Vehicle Name",
-            "name": "VehicleName"
-        },
-        {
             "type": "NumberSpinner",
-            "caption": "Query Interval",
-            "name": "QueryInterval",
+            "caption": "Update Interval",
+            "name": "UpdateInterval",
             "minimum": 0,
-            "suffix": " Minutes"
+            "suffix": "minutes"
         }
     ],
     "actions": [
         {
             "type": "Button",
             "caption": "Fetch the last records",
-            "onClick": "echo(TROND_RequestLastRecord($id));"
+            "onClick": "echo(TRON_RequestLastRecord($id));"
         },
         {
             "type": "Button",
             "caption": "Start Charging",
-            "onClick": "echo(TROND_StartCharging($id));"
+            "onClick": "echo(TRON_StartCharging($id));"
         },
         {
             "type": "Button",
             "caption": "Stop Charging",
-            "onClick": "echo(TROND_StopCharging($id));"
+            "onClick": "echo(TRON_StopCharging($id));"
         }
     ],
     "status": []

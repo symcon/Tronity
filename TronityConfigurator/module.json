@@ -5,12 +5,12 @@
     "vendor": "",
     "aliases": [],
     "parentRequirements": [
-        "{6254260D-00B7-6054-F4CB-00CBA128A988}"
+        "{63CE9905-4ED9-8E7E-2359-6FFD9D85B407}"
     ],
     "childRequirements": [],
     "implemented": [
-        "{A3079924-2CCF-03ED-BAEA-2EBCE72F7613}"
+        "{3280EFA9-8494-8471-1F0C-10576F165469}"
     ],
-    "prefix": "TRONC",
+    "prefix": "TRON",
     "url": "https://github.com/symcon/Tronity"
 }
