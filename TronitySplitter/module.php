@@ -32,7 +32,7 @@ declare(strict_types=1);
             // Weiterleiten zur I/O Instanz
             $result = $this->SendDataToParent(json_encode(['DataID' => '{63CE9905-4ED9-8E7E-2359-6FFD9D85B407}', 'Buffer' => $data->Buffer]));
 
-			$this->SendDebug('Result', $result , 0);
+            $this->SendDebug('Result', $result, 0);
             // Weiterverarbeiten und durchreichen zum Device
             return $result;
         }

@@ -30,7 +30,7 @@ declare(strict_types=1);
             }
 
             if (!$this->isAuthTokenAvailable()) {
-				IPS_LogMessage('Buffer Token', $this->GetBuffer('authToken'));
+                IPS_LogMessage('Buffer Token', $this->GetBuffer('authToken'));
                 $this->SetStatus(201);
                 return;
             }
@@ -68,12 +68,11 @@ declare(strict_types=1);
 
         public function AuthenticateUser(string $clientID, string $clientSecret): int
         {
-			
             if ($clientID == '' || $clientSecret = '') {
                 $clientID = $this->ReadPropertyString('ClientID');
                 $clientSecret = $this->ReadPropertyString('ClientSecret');
             }
-			IPS_LogMessage('ClientID', $clientID);
+            IPS_LogMessage('ClientID', $clientID);
 
             //Get the Access Token from the Tronity Platform
             $data = ['client_id' => $clientID, 'client_secret' => $clientSecret, 'grant_type' => 'app'];
@@ -127,8 +126,10 @@ declare(strict_types=1);
 
         private function requestData(string $url, array $context)
         {
+            $this->SendDebug('Request on ' . $url . 'with', print_r($context, true), 0);
             $context = stream_context_create($context);
             $response = file_get_contents($url, false, $context);
+            $this->SendDebug('Response', print_r($response, true), 0);
             IPS_LogMessage('Response', $response);
             return json_decode($response, true);
         }

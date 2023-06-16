@@ -138,7 +138,7 @@ declare(strict_types=1);
             }
         }
 
-        public function StartCharging() : string
+        public function StartCharging(): string
         {
             $response = json_decode($this->SendDataToParent(
                 json_encode([
@@ -160,7 +160,7 @@ declare(strict_types=1);
             }
         }
 
-        public function StopCharging() : string
+        public function StopCharging(): string
         {
             $response = json_decode($this->SendDataToParent(
                 json_encode([
