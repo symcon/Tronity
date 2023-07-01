@@ -15,23 +15,44 @@ declare(strict_types=1);
             $this->RegisterPropertyInteger('UpdateInterval', 15); // Minutes
 
             //Profiles
-            if (!IPS_VariableProfileExists('TRON.Kilometer')) {
-                IPS_CreateVariableProfile('TRON.Kilometer', VARIABLETYPE_INTEGER);
-                IPS_SetVariableProfileText('TRON.Kilometer', '', ' km');
+            if (!IPS_VariableProfileExists('TRON.Odometer')) {
+                IPS_CreateVariableProfile('TRON.Odometer', VARIABLETYPE_INTEGER);
+                IPS_SetVariableProfileText('TRON.Odometer', '', ' km');
+                IPS_SetVariableProfileIcon('TRON.Odometer', 'Car');
+            }
+            if (!IPS_VariableProfileExists('TRON.Range')) {
+                IPS_CreateVariableProfile('TRON.Range', VARIABLETYPE_INTEGER);
+                IPS_SetVariableProfileText('TRON.Range', '', ' km');
+                IPS_SetVariableProfileIcon('TRON.Range', 'Distance');
             }
             if (!IPS_VariableProfileExists('TRON.Plugged')) {
                 IPS_CreateVariableProfile('TRON.Plugged', VARIABLETYPE_BOOLEAN);
                 IPS_SetVariableProfileAssociation('TRON.Plugged', true, $this->Translate('Plugged'), 'Plug', 0x00FF00);
                 IPS_SetVariableProfileAssociation('TRON.Plugged', false, $this->Translate('Unplugged'), 'Plug', 0x00FF00);
+                IPS_SetVariableProfileIcon('TRON.Plugged', 'Plug');
             }
             if (!IPS_VariableProfileExists('TRON.Position')) {
                 IPS_CreateVariableProfile('TRON.Position', VARIABLETYPE_FLOAT);
                 IPS_SetVariableProfileDigits('TRON.Position', 3);
                 IPS_SetVariableProfileText('TRON.Position', '', '°');
+                IPS_SetVariableProfileIcon('TRON.Position', 'Move');
+            }
+            if (!IPS_VariableProfileExists('TRON.ChargerPower')) {
+                IPS_CreateVariableProfile('TRON.ChargerPower', VARIABLETYPE_FLOAT);
+                IPS_SetVariableProfileDigits('TRON.ChargerPower', 1);
+                IPS_SetVariableProfileText('TRON.ChargerPower', '', ' kW');
+                IPS_SetVariableProfileIcon('TRON.ChargerPower', 'EnergyProduction');
             }
             if (!IPS_VariableProfileExists('TRON.Time')) {
                 IPS_CreateVariableProfile('TRON.Time', VARIABLETYPE_INTEGER);
                 IPS_SetVariableProfileText('TRON.Time', '', ' ' . $this->Translate('seconds'));
+                IPS_SetVariableProfileIcon('TRON.Time', 'Clock');
+            }
+            if (!IPS_VariableProfileExists('TRON.Battery')) {
+                IPS_CreateVariableProfile('TRON.Battery', VARIABLETYPE_INTEGER);
+                IPS_SetVariableProfileText('TRON.Battery', '', ' %');
+                IPS_SetVariableProfileValues('TRON.Battery', 0, 100, 0);
+                IPS_SetVariableProfileIcon('TRON.Battery', 'EnergyStorage');
             }
             if (!IPS_VariableProfileExists('TRON.Charging')) {
                 IPS_CreateVariableProfile('TRON.Charging', VARIABLETYPE_STRING);
@@ -42,16 +63,17 @@ declare(strict_types=1);
                 IPS_SetVariableProfileAssociation('TRON.Charging', 'Stopped', $this->Translate('Stopped'), '', 0x0000FF);
                 IPS_SetVariableProfileAssociation('TRON.Charging', 'Disconnected', $this->Translate('Disconnected'), '', 0x00FF00);
                 IPS_SetVariableProfileAssociation('TRON.Charging', 'Charging', $this->Translate('Charging'), '', 0x0000FF);
+                IPS_SetVariableProfileIcon('TRON.Battery', 'Network');
             }
 
             //Variables
-            $this->RegisterVariableInteger('Odometer', $this->Translate('Odometer'), 'TRON.Kilometer', 1);
-            $this->RegisterVariableInteger('Range', $this->Translate('Range'), 'TRON.Kilometer', 2);
-            $this->RegisterVariableInteger('Level', $this->Translate('Battery Level'), '~Battery.100', 3);
+            $this->RegisterVariableInteger('Odometer', $this->Translate('Odometer'), 'TRON.Odometer', 1);
+            $this->RegisterVariableInteger('Range', $this->Translate('Range'), 'TRON.Range', 2);
+            $this->RegisterVariableInteger('Level', $this->Translate('Battery Level'), 'TRON.Battery', 3);
             $this->RegisterVariableString('Charging', $this->Translate('Charging Status'), 'TRON.Charging', 4);
             $this->RegisterVariableInteger('ChargeRemainTime', $this->Translate('Charging Remain Time'), 'TRON.Time', 5);
             $this->RegisterVariableBoolean('Plugged', $this->Translate('Plugged'), 'TRON.Plugged', 6);
-            $this->RegisterVariableInteger('ChargerPower', $this->Translate('Charger Power'), '', 7);
+            $this->RegisterVariableFloat('ChargerPower', $this->Translate('Charger Power'), 'TRON.ChargerPower', 7);
             $this->RegisterVariableFloat('Latitude', $this->Translate('Latitude'), 'TRON.Position', 8);
             $this->RegisterVariableFloat('Longitude', $this->Translate('Longitude'), 'TRON.Position', 9);
             $this->RegisterVariableInteger('Timestamp', $this->Translate('Timestamp'), '~UnixTimestamp', 10);
