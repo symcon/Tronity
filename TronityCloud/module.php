@@ -51,9 +51,9 @@ declare(strict_types=1);
 
             $context = [
                 'http' => [
-                    'method' => $data['RequestMethod'],
-                    'content' => $data['RequestData'],
-                    'header' => "Content-Type: application/json\r\nAuthorization: bearer " . $this->GetBuffer('authToken'),
+                    'method'        => $data['RequestMethod'],
+                    'content'       => $data['RequestData'],
+                    'header'        => "Content-Type: application/json\r\nAuthorization: bearer " . $this->GetBuffer('authToken'),
                     'ignore_errors' => true,
                 ]
             ];
@@ -61,20 +61,30 @@ declare(strict_types=1);
             return json_encode($this->requestData($data['RequestURL'], $context));
         }
 
+        public function TestAuthentication(): void
+        {
+            try {
+                $this->Authenticate();
+                echo $this->Translate('OK');
+            } catch (Exception $e) {
+                echo $e;
+            }
+        }
+
         private function Authenticate(): void
         {
             //Get the Access Token from the Tronity Platform
             $data = [
-                'client_id' => $this->ReadPropertyString('ClientID'),
+                'client_id'     => $this->ReadPropertyString('ClientID'),
                 'client_secret' => $this->ReadPropertyString('ClientSecret'),
-                'grant_type' => 'app',
+                'grant_type'    => 'app',
             ];
 
             $context = [
                 'http' => [
-                    'method' => 'POST',
-                    'content' => json_encode($data),
-                    'header' => "Content-Type: application/json\r\n",
+                    'method'        => 'POST',
+                    'content'       => json_encode($data),
+                    'header'        => "Content-Type: application/json\r\n",
                     'ignore_errors' => true,
                 ]
             ];
@@ -89,23 +99,13 @@ declare(strict_types=1);
             $this->SetBuffer('expiresAt', time() + $response['expires_in']);
         }
 
-        public function TestAuthentication(): void
-        {
-            try {
-                $this->Authenticate();
-                echo $this->Translate("OK");
-            } catch (Exception $e) {
-                echo $e;
-            }
-        }
-
         private function updateAuthenticationToken(): bool
         {
             if (!$this->GetBuffer('expiresAt') || time() > $this->GetBuffer('expiresAt')) {
                 try {
                     $this->Authenticate();
                     $this->SetStatus(IS_ACTIVE);
-                } catch(Exception $e) {
+                } catch (Exception $e) {
                     $this->SetStatus(IS_EBASE);
                     echo $e;
                     return false;

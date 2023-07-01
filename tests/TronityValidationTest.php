@@ -8,12 +8,16 @@ class TronityValidationTest extends TestCaseSymconValidation
     {
         $this->validateLibrary(__DIR__ . '/..');
     }
-    public function testValidateTronityIO(): void
+    public function testValidateTronityCloud(): void
     {
-        $this->validateModule(__DIR__ . '/../TronityIO');
+        $this->validateModule(__DIR__ . '/../TronityCloud');
     }
     public function testValidateTronityConfigurator(): void
     {
         $this->validateModule(__DIR__ . '/../TronityConfigurator');
+    }
+    public function testValidateTronityDevice(): void
+    {
+        $this->validateModule(__DIR__ . '/../TronityDevice');
     }
 }

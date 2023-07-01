@@ -96,30 +96,6 @@ declare(strict_types=1);
             $this->SetTimerInterval('UpdateTimer', $this->ReadPropertyInteger('UpdateInterval') * 60 * 1000);
         }
 
-        private function Request($endpoint)
-        {
-            $data = json_encode([
-                'DataID'        => '{63CE9905-4ED9-8E7E-2359-6FFD9D85B407}',
-                'Buffer'        => json_encode([
-                    'RequestMethod' => 'GET',
-                    'RequestURL'    => '/tronity/vehicles/' . $this->ReadPropertyString('VehicleID') . $endpoint,
-                    'RequestData'   => ''
-                ])
-            ]);
-
-            $response = json_decode($this->SendDataToParent($data), true);
-
-            // Throw exception if we have an error
-            if (array_key_exists('statusCode', $response)) {
-                if ($response['message'] == "Not Found") {
-                    $response['message'] = "The requested vehicle id could not be found!";
-                }
-                die($response['message']);
-            }
-
-            return $response;
-        }
-
         public function RequestLastRecord(): void
         {
             $response = $this->Request('/last_record');
@@ -136,15 +112,39 @@ declare(strict_types=1);
             $this->SetValue('LastUpdate', $response['lastUpdate'] / 1000); // Milliseconds
         }
 
-        public function StartCharging() : void
+        public function StartCharging(): void
         {
             $response = $this->Request('/control/start_charging');
             $this->SendDebug('StartCharging', print_r($response, true), 0);
         }
 
-        public function StopCharging() : void
+        public function StopCharging(): void
         {
             $response = $this->Request('/control/start_charging');
             $this->SendDebug('StopCharging', print_r($response, true), 0);
+        }
+
+        private function Request($endpoint)
+        {
+            $data = json_encode([
+                'DataID'        => '{63CE9905-4ED9-8E7E-2359-6FFD9D85B407}',
+                'Buffer'        => json_encode([
+                    'RequestMethod' => 'GET',
+                    'RequestURL'    => '/tronity/vehicles/' . $this->ReadPropertyString('VehicleID') . $endpoint,
+                    'RequestData'   => ''
+                ])
+            ]);
+
+            $response = json_decode($this->SendDataToParent($data), true);
+
+            // Throw exception if we have an error
+            if (array_key_exists('statusCode', $response)) {
+                if ($response['message'] == 'Not Found') {
+                    $response['message'] = 'The requested vehicle id could not be found!';
+                }
+                die($response['message']);
+            }
+
+            return $response;
         }
     }

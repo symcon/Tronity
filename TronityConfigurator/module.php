@@ -17,20 +17,6 @@ class TronityConfigurator extends IPSModule
         parent::Destroy();
     }
 
-    private function Request($endpoint)
-    {
-        //get the list of vehicle
-        $data = json_encode([
-            'DataID'        => '{63CE9905-4ED9-8E7E-2359-6FFD9D85B407}',
-            'Buffer'        => json_encode([
-                'RequestMethod' => 'GET',
-                'RequestURL'    => $endpoint,
-                'RequestData'   => ''
-            ])
-        ]);
-        return json_decode($this->SendDataToParent($data), true);
-    }
-
     public function GetConfigurationForm(): string
     {
         $form = json_decode(file_get_contents(__DIR__ . '/form.json'), true);
@@ -50,8 +36,8 @@ class TronityConfigurator extends IPSModule
             $this->SendDebug('Vehicle', print_r($vehicle, true), 0);
             $availableVehicles[] =
                 [
-                    'vid'   => $vehicle['id'],
-                    'name' => $instanceID ? IPS_GetName($instanceID) : $vehicle['displayName'],
+                    'vid'         => $vehicle['id'],
+                    'name'        => $instanceID ? IPS_GetName($instanceID) : $vehicle['displayName'],
                     'instanceID'  => $instanceID,
                     'create'      => [
                         'moduleID'      => '{D041B19E-6D70-A84F-B67C-4FF51CA38D3A}', //TronityDevice
@@ -66,14 +52,28 @@ class TronityConfigurator extends IPSModule
         foreach ($vehicleInstances as $instanceID) {
             $availableVehicles[] =
                 [
-                    'vid'   => IPS_GetProperty($instanceID, 'VehicleID'),
-                    'name' => IPS_GetName($instanceID),
+                    'vid'         => IPS_GetProperty($instanceID, 'VehicleID'),
+                    'name'        => IPS_GetName($instanceID),
                     'instanceID'  => $instanceID,
                 ];
         }
 
         $form['actions'][0]['values'] = $availableVehicles;
         return json_encode($form);
+    }
+
+    private function Request($endpoint)
+    {
+        //get the list of vehicle
+        $data = json_encode([
+            'DataID'        => '{63CE9905-4ED9-8E7E-2359-6FFD9D85B407}',
+            'Buffer'        => json_encode([
+                'RequestMethod' => 'GET',
+                'RequestURL'    => $endpoint,
+                'RequestData'   => ''
+            ])
+        ]);
+        return json_decode($this->SendDataToParent($data), true);
     }
 
     private function searchID($vehicleID): int
