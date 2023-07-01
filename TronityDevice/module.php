@@ -31,7 +31,7 @@ declare(strict_types=1);
             }
             if (!IPS_VariableProfileExists('TRON.Time')) {
                 IPS_CreateVariableProfile('TRON.Time', VARIABLETYPE_INTEGER);
-                IPS_SetVariableProfileText('TRON.Time', '', $this->Translate(' seconds'));
+                IPS_SetVariableProfileText('TRON.Time', '', ' ' . $this->Translate('seconds'));
             }
             if (!IPS_VariableProfileExists('TRON.Charging')) {
                 IPS_CreateVariableProfile('TRON.Charging', VARIABLETYPE_STRING);
