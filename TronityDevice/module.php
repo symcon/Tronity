@@ -63,7 +63,7 @@ declare(strict_types=1);
                 IPS_SetVariableProfileAssociation('TRON.Charging', 'Stopped', $this->Translate('Stopped'), '', 0x0000FF);
                 IPS_SetVariableProfileAssociation('TRON.Charging', 'Disconnected', $this->Translate('Disconnected'), '', 0x00FF00);
                 IPS_SetVariableProfileAssociation('TRON.Charging', 'Charging', $this->Translate('Charging'), '', 0x0000FF);
-                IPS_SetVariableProfileIcon('TRON.Battery', 'Network');
+                IPS_SetVariableProfileIcon('TRON.Charging', 'Network');
             }
 
             //Variables
