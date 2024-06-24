@@ -103,9 +103,9 @@ class TronityDevice extends IPSModule
         $this->SetValue('Range', $response['range']);
         $this->SetValue('Level', $response['level']);
         $this->SetValue('Charging', $response['charging']);
-        $this->SetValue('ChargeRemainTime', $response['chargeRemainingTime']);
+        $this->SetValue('ChargeRemainTime', isset($response['chargeRemainingTime']) ? $response['chargeRemainingTime'] : 0);
         $this->SetValue('Plugged', $response['plugged']);
-        $this->SetValue('ChargerPower', $response['chargerPower']);
+        $this->SetValue('ChargerPower', isset($response['chargerPower']) ? $response['chargerPower'] : 0);
         $this->SetValue('Latitude', $response['latitude']);
         $this->SetValue('Longitude', $response['longitude']);
         $this->SetValue('Timestamp', $response['timestamp'] / 1000); // Milliseconds
